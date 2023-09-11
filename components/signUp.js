@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,StatusBar, TextInput, TouchableOpacity,Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View,StatusBar, TextInput, TouchableOpacity,Dimensions, Image, ScrollView } from 'react-native';
 import {useNavigation } from '@react-navigation/native';
 
 const dimensions = Dimensions.get('window');
