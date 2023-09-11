@@ -1,10 +1,14 @@
-import { StyleSheet, Text, View,StatusBar, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,StatusBar, TextInput, TouchableOpacity,Dimensions, ScrollView } from 'react-native';
 import {useNavigation } from '@react-navigation/native';
 
+const dimensions = Dimensions.get('window');
+const imageHeight = Math.round(dimensions.width * 9 / 16);
+const imageWidth = dimensions.width;
+
 export default SignUp = ({route})=> {
-  const navigation = useNavigation();
   return (
-    <View style={styles.wrapper}>
+    <ScrollView contentContainerStyle={styles.topContainer}>
+      <Image source={require('../assets/websitelogo-header.png')} style={styles.logoImage}/>
       <StatusBar barStyle={'light-content'} />
       <View style={styles.formContainer}>
         <Text style={styles.title}>Sign up</Text>
@@ -29,7 +33,7 @@ export default SignUp = ({route})=> {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent: 'center',
     height: 100,
-    width: 1,
+    width: imageWidth,
     margin:50
   },
   container: {
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
   },
   inputWrapper: {
-    marginBottom: 30,
+    marginBottom: 0,
   },
   inputStyle:{
     borderColor: '#16213E',
@@ -84,6 +88,7 @@ const styles = StyleSheet.create({
   errorTxt:{
     fontSize: 12,
     color: '#FF0D10',
+    marginBottom:'5%'
   },
   submitBtn:{
     backgroundColor: '#1babdf',
@@ -99,20 +104,19 @@ const styles = StyleSheet.create({
     fontWeight:'700',
   },
   textInputcontainer: {
-    flexDirection: 'row', 
-    alignItems: 'center', 
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 5,
     padding: 10,
   },
   textInputimage: {
-    width: 20, 
-    height: 20, 
-    marginRight: 10, 
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
   textInputWithImage: {
-    flex: 1, 
-    padding: 0, 
+    flex: 1,
   },
 });

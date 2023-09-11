@@ -21,30 +21,26 @@ const ImageTextInput = ({image,text}) => {
 };
 
 export default ForgotPassword = (props)=> {
-    
+
   const navigation = useNavigation();
 
   return (
     <ScrollView contentContainerStyle={styles.topContainer}>
       <Image source={require('../assets/websitelogo-header.png')} style={styles.logoImage}/>
       <StatusBar barStyle={'light-content'} />
-      <Text style={{fontSize:24}}>Welcome Back!</Text>
-      <Text>Please enter your account here</Text>
+      <Text style={{fontSize:24}}>No worries stay calm!</Text>
+      <Text>Please enter your mailid here</Text>
       <View style={styles.formContainer}>
         <View style={styles.inputWrapper}>
           <ImageTextInput text='Email' image={require('../assets/mail-icon-15.jpg')}/>
         </View>
-        <View style={styles.inputWrapper}>
-          <ImageTextInput text='Password' image={require('../assets/password-icon-14.jpg')}/>
-        </View>
-        <Text style={{paddingBottom:'40%',textAlign:'right'}}>Forgot password ?</Text> 
+        <Text style={{paddingBottom:'40%',textAlign:'center'}}>Submit to get otp</Text> 
         <View style={styles.container}>
             <TouchableOpacity style={styles.submitBtn}>
-              <Text style={styles.submitBtnTxt}>Log-in</Text>
+              <Text style={styles.submitBtnTxt}>Get OTP</Text>
             </TouchableOpacity>
         </View>
       </View>
-      <Text>Don't have an account? <Text onPress={() => {navigation.navigate('Sign Up')}}>Sign Up</Text></Text>
     </ScrollView>
   );
 }

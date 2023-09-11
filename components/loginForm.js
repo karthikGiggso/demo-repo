@@ -48,36 +48,14 @@ export default LoginForm = (props)=> {
       <Text>Please enter your account here</Text>
       <View style={styles.formContainer}>
         <View style={styles.inputWrapper}>
-          <View style={styles.textInputcontainer}>
-            <Image
-              source={require('../assets/mail-icon-15.jpg')}
-              style={styles.textInputimage}
-            />
-            <TextInput
-              style={styles.textInputWithImage}
-              placeholder='Email'
-              value={values.mailid}
-              onChangeText={handleChange('mailid')}
-            />
-          </View>
+          <ImageTextInput image={require('../assets/mail-icon-15.jpg')} text={'Email'} inputValue={values.mailid} handleChange={handleChange('mailid')}/>
         </View>
-        {errors.mailid ? <Text style={styles.errorTxt}>{errors.mailid}</Text>:''}
+        <Text style={styles.errorTxt}>{errors.mailid ? errors.mailid:''}</Text>
         <View style={styles.inputWrapper}>
-        <View style={styles.textInputcontainer}>
-          <Image
-              source={require('../assets/password-icon-14.jpg')}
-              style={styles.textInputimage}
-            />
-            <TextInput
-              style={styles.textInputWithImage}
-              placeholder='Password'
-              value={values.password}
-              onChangeText={handleChange('password')}
-            />
-          </View>
+          <ImageTextInput image={require('../assets/password-icon-14.jpg')} text={'Password'} inputValue={values.password} handleChange={handleChange('password')}/>
         </View>
-        {errors.password ? <Text style={styles.errorTxt}>{errors.password}</Text>:''}
-        <Text style={{paddingBottom:'40%',textAlign:'right'}}>Forgot password ?</Text> 
+        <Text style={styles.errorTxt}>{errors.password ? errors.password:''}</Text>
+        <Text style={{color:'#1babdf',paddingBottom:'40%',textAlign:'right'}} onPress={() => {navigation.navigate('Forgot Password')}}>Forgot password ?</Text> 
         <View style={styles.container}>
             <TouchableOpacity style={styles.submitBtn}>
               <Text style={styles.submitBtnTxt}>Log-in</Text>
