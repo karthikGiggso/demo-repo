@@ -1,16 +1,12 @@
 import { StyleSheet, Text, View,StatusBar, TextInput, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native';
-import {useNavigation } from '@react-navigation/native';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16);
 const imageWidth = dimensions.width;
 
-const ImageTextInput = ({image,text,inputValue,handleChange}) => {
-
+const ImageTextInput = ({image,text}) => {
   return (
-
     <View style={styles.textInputcontainer}>
       <Image
         source={image}
@@ -19,28 +15,16 @@ const ImageTextInput = ({image,text,inputValue,handleChange}) => {
       <TextInput
         style={styles.textInputWithImage}
         placeholder={text}
-        value={inputValue}
-        onChangeText={handleChange}
       />
     </View>
   );
 };
 
-export default LoginForm = (props)=> {
+export default ForgotPassword = (props)=> {
+    
   const navigation = useNavigation();
-  const initialValues={
-    mailid:'',
-    password:''
-  }
 
-  const SignUpSchema =Yup.object().shape({
-    mailid: Yup.string().email().required(),
-    password:Yup.string().required(),
-  });
-
-  return (    
-  <Formik initialValues={initialValues} validationSchema={SignUpSchema}>
-  {({errors,touched,validateOnChange,setFieldError,setFieldTouched,handleSubmit,values,handleChange})=>(
+  return (
     <ScrollView contentContainerStyle={styles.topContainer}>
       <Image source={require('../assets/websitelogo-header.png')} style={styles.logoImage}/>
       <StatusBar barStyle={'light-content'} />
@@ -48,35 +32,11 @@ export default LoginForm = (props)=> {
       <Text>Please enter your account here</Text>
       <View style={styles.formContainer}>
         <View style={styles.inputWrapper}>
-          <View style={styles.textInputcontainer}>
-            <Image
-              source={require('../assets/mail-icon-15.jpg')}
-              style={styles.textInputimage}
-            />
-            <TextInput
-              style={styles.textInputWithImage}
-              placeholder='Email'
-              value={values.mailid}
-              onChangeText={handleChange('mailid')}
-            />
-          </View>
+          <ImageTextInput text='Email' image={require('../assets/mail-icon-15.jpg')}/>
         </View>
-        {errors.mailid ? <Text style={styles.errorTxt}>{errors.mailid}</Text>:''}
         <View style={styles.inputWrapper}>
-        <View style={styles.textInputcontainer}>
-          <Image
-              source={require('../assets/password-icon-14.jpg')}
-              style={styles.textInputimage}
-            />
-            <TextInput
-              style={styles.textInputWithImage}
-              placeholder='Password'
-              value={values.password}
-              onChangeText={handleChange('password')}
-            />
-          </View>
+          <ImageTextInput text='Password' image={require('../assets/password-icon-14.jpg')}/>
         </View>
-        {errors.password ? <Text style={styles.errorTxt}>{errors.password}</Text>:''}
         <Text style={{paddingBottom:'40%',textAlign:'right'}}>Forgot password ?</Text> 
         <View style={styles.container}>
             <TouchableOpacity style={styles.submitBtn}>
@@ -84,13 +44,8 @@ export default LoginForm = (props)=> {
             </TouchableOpacity>
         </View>
       </View>
-      <Text>Don't have an account? <Text style={{color:'#1babdf'}} onPress={() => {navigation.navigate('Sign Up')}}>Sign Up</Text></Text>
-           
+      <Text>Don't have an account? <Text onPress={() => {navigation.navigate('Sign Up')}}>Sign Up</Text></Text>
     </ScrollView>
-  )}
-
-    </Formik>
-
   );
 }
 
@@ -134,7 +89,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
   },
   inputWrapper: {
-    marginBottom: 0,
+    marginBottom: 30,
   },
   inputStyle:{
     borderColor: '#16213E',
@@ -145,7 +100,6 @@ const styles = StyleSheet.create({
   errorTxt:{
     fontSize: 12,
     color: '#FF0D10',
-    marginBottom:'5%'
   },
   submitBtn:{
     backgroundColor: '#1babdf',
@@ -171,9 +125,10 @@ const styles = StyleSheet.create({
   textInputimage: {
     width: 20,
     height: 20,
-    marginRight: 10,
+    marginRight: 10, 
   },
   textInputWithImage: {
     flex: 1,
+    padding: 0, 
   },
 });

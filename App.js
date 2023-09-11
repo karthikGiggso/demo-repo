@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginForm from './components/loginForm';
 import SignUp from './components/signUp';
+import ForgotPassword from './components/forgotPassword';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ export default function App() {
     <Stack.Navigator>
       <Stack.Screen name="Login" component={LoginForm} />
       <Stack.Screen name="Sign Up" component={SignUp} />
+      <Stack.Screen name="Forgot Password" component={ForgotPassword} />
     </Stack.Navigator>
   </NavigationContainer>
   );
