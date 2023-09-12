@@ -1,7 +1,5 @@
-import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity, Dimensions, Image, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Text, View, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native';
 import ImageTextInput from './imageTextInput';
-import { useState } from 'react';
 import { styles } from '../styles/styles';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -15,6 +13,7 @@ export default SignUp = () => {
     confirmpassword: '',
     mobileno: ''
   }
+  
   const SignUpSchema = Yup.object().shape({
     fullname: Yup
       .string()
@@ -52,7 +51,6 @@ export default SignUp = () => {
           <Text>Please enter your details</Text>
           <View style={styles.formContainer}>
             <Text style={styles.title}>Sign up</Text>
-
             <View style={styles.inputWrapper}>
               <ImageTextInput image='account' text={'Full Name'} inputValue={values.fullname} handleChange={handleChange('fullname')} onBlurFunction={() => setFieldTouched('fullname')} />
             </View>
@@ -74,18 +72,14 @@ export default SignUp = () => {
               <ImageTextInput image='cellphone' text={'Mobile No.'} inputValue={values.mobileno} handleChange={handleChange('mobileno')} onBlurFunction={() => setFieldTouched('mobileno')} />
             </View>
             <Text style={styles.errorTxt}>{touched.mobileno && errors.mobileno ? errors.mobileno : ''}</Text>
-
             <View style={styles.container}>
               <TouchableOpacity onPress={handleSubmit} title="Submit" style={[styles.submitBtn, { backgroundColor: isValid ? '#1babdf' : '#0004' }]} disabled={!isValid}>
                 <Text style={styles.submitBtnTxt}>Submit</Text>
               </TouchableOpacity>
             </View>
-
           </View>
         </ScrollView>
       )}
-
     </Formik>
-
   );
 }

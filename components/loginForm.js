@@ -1,19 +1,19 @@
-import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native';
+import { Text, View, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import ImageTextInput from '../components/imageTextInput'
-import { Zocial, Ionicons } from '@expo/vector-icons';
+import ImageTextInput from '../components/imageTextInput';
 import PasswordEyeBox from './passwordEyeBox';
 import { styles } from '../styles/styles';
-import { useState } from 'react';
 
 export default LoginForm = () => {
   const navigation = useNavigation();
+  
   const initialValues = {
     mailid: '',
     password: ''
   }
+
   const SignUpSchema = Yup.object().shape({
     mailid: Yup
       .string()
@@ -49,11 +49,8 @@ export default LoginForm = () => {
             </View>
           </View>
           <Text>Don't have an account? <Text style={{ color: '#1babdf' }} onPress={() => { navigation.navigate('Sign Up') }}>Sign Up</Text></Text>
-
         </ScrollView>
       )}
-
     </Formik>
-
   );
 }

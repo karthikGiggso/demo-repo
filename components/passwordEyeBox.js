@@ -2,7 +2,6 @@ import { View, TextInput, Image, Pressable} from 'react-native';
 import { styles } from '../styles/styles';
 import { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
- 
 
 export default PasswordEyeBox = ({image,text,inputValue,handleChange,onBlurFunction}) => {
 
@@ -23,6 +22,7 @@ export default PasswordEyeBox = ({image,text,inputValue,handleChange,onBlurFunct
         handleVisibility
       };
     }
+    
     return (
       <View style={styles.textInputcontainer}>
         <MaterialCommunityIcons name={image} size={22} color="#232323" style={styles.textInputimage}/>

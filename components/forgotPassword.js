@@ -1,9 +1,7 @@
-import { Text, View, StatusBar, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ImageTextInput from '../components/imageTextInput'
-import PasswordEyeBox from './passwordEyeBox';
+import { Text, View, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native';
+import ImageTextInput from '../components/imageTextInput';
 import { styles } from '../styles/styles';
-import { useState } from 'react';
+
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,15 +10,17 @@ export default ForgotPassword = () => {
   const initialValues = {
     mailid: ''
   }
+
   const SignUpSchema = Yup.object().shape({
     mailid: Yup
       .string()
       .email('Please enter a valid email id')
       .required('Please enter a email id'),
   });
+
   return (
     <Formik initialValues={initialValues} validationSchema={SignUpSchema} >
-      {({ errors, touched, validateOnChange, setFieldError, setFieldTouched, handleSubmit, values, isValid, handleChange }) => (
+      {({ errors, touched, setFieldTouched, handleSubmit, values, isValid, handleChange }) => (
         <ScrollView contentContainerStyle={styles.topContainer}>
           <Image source={require('../assets/websitelogo-header.png')} style={styles.logoImage} />
           <StatusBar barStyle={'light-content'} />
@@ -39,9 +39,7 @@ export default ForgotPassword = () => {
           </View>
         </ScrollView>
       )}
-
     </Formik>
-
   );
 }
 
