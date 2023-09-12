@@ -1,122 +1,91 @@
-import { StyleSheet, Text, View,StatusBar, TextInput, TouchableOpacity,Dimensions, Image, ScrollView } from 'react-native';
-import {useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity, Dimensions, Image, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import ImageTextInput from './imageTextInput';
+import { useState } from 'react';
+import { styles } from '../styles/styles';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-const dimensions = Dimensions.get('window');
-const imageHeight = Math.round(dimensions.width * 9 / 16);
-const imageWidth = dimensions.width;
+export default SignUp = () => {
 
-export default SignUp = ({route})=> {
+  const initialValues = {
+    fullname: '',
+    mailid: '',
+    password: '',
+    confirmpassword: '',
+    mobileno: ''
+  }
+  const SignUpSchema = Yup.object().shape({
+    fullname: Yup
+      .string()
+      .min(1)
+      .required('Please enter the name'),
+    mailid: Yup
+      .string()
+      .email('Please enter a valid email id')
+      .required('Please enter a email id'),
+    password: Yup
+      .string()
+      .min(8)
+      .required('Please enter your password')
+      .matches(
+        "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      ),
+    confirmpassword: Yup
+      .string()
+      .min(8)
+      .oneOf([Yup.ref('password')], 'Your password do not match')
+      .required('Please re-enter your password'),
+    mobileno: Yup
+      .string()
+      .required('Mobile number required')
+  });
+
   return (
-    <ScrollView contentContainerStyle={styles.topContainer}>
-      <Image source={require('../assets/websitelogo-header.png')} style={styles.logoImage}/>
-      <StatusBar barStyle={'light-content'} />
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Sign up</Text>
-        <View style={styles.inputWrapper}>
-          <TextInput style={styles.inputStyle} placeholder='Full Name '/>
-        </View>
-        <View style={styles.inputWrapper}>
-          <TextInput style={styles.inputStyle} placeholder='Email Address'/>
-        </View>
-        <View style={styles.inputWrapper}>
-          <TextInput style={styles.inputStyle} placeholder='Password'/>
-        </View>        
-        <View style={styles.inputWrapper}>
-          <TextInput style={styles.inputStyle} placeholder='Confirm Password'/>
-        </View>
-        <View style={styles.inputWrapper}>
-          <TextInput style={styles.inputStyle} placeholder='Mobile No'/>
-        </View>
-        <View style={{ flexDirection:"row" }}>
-          <TouchableOpacity style={styles.submitBtn}>
-            <Text style={styles.submitBtnTxt}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+    <Formik initialValues={initialValues} validationSchema={SignUpSchema} >
+      {({ errors, touched, validateOnChange, setFieldError, setFieldTouched, handleSubmit, isValid, values, handleChange }) => (
+        <ScrollView contentContainerStyle={styles.topContainer}>
+          <Image source={require('../assets/websitelogo-header.png')} style={styles.logoImage} />
+          <StatusBar barStyle={'light-content'} />
+          <Text style={{ fontSize: 24 }}>Hi There!</Text>
+          <Text>Please enter your details</Text>
+          <View style={styles.formContainer}>
+            <Text style={styles.title}>Sign up</Text>
+
+            <View style={styles.inputWrapper}>
+              <ImageTextInput image='account' text={'Full Name'} inputValue={values.fullname} handleChange={handleChange('fullname')} onBlurFunction={() => setFieldTouched('fullname')} />
+            </View>
+            <Text style={styles.errorTxt}>{touched.fullname && errors.fullname ? errors.fullname : ''}</Text>
+            <View style={styles.inputWrapper}>
+              <ImageTextInput image='email' text={'Email'} inputValue={values.mailid} handleChange={handleChange('mailid')} onBlurFunction={() => setFieldTouched('mailid')} />
+            </View>
+            <Text style={styles.errorTxt}>{touched.mailid && errors.mailid ? errors.mailid : ''}</Text>
+            <View style={styles.inputWrapper}>
+              <PasswordEyeBox image='lock' text={'Password'} inputValue={values.password} handleChange={handleChange('password')} onBlurFunction={() => setFieldTouched('password')} />
+            </View>
+            <Text style={styles.errorTxt}>{touched.password && errors.password ? errors.password : ''}</Text>
+            <View style={styles.inputWrapper}>
+              <PasswordEyeBox image='lock' text={'Confirm Password'} inputValue={values.confirmpassword} handleChange={handleChange('confirmpassword')} onBlurFunction={() => setFieldTouched('confirmpassword')} />
+            </View>
+            <Text style={styles.errorTxt}>{touched.confirmpassword && errors.confirmpassword ? errors.confirmpassword : ''}</Text>
+
+            <View style={styles.inputWrapper}>
+              <ImageTextInput image='cellphone' text={'Mobile No.'} inputValue={values.mobileno} handleChange={handleChange('mobileno')} onBlurFunction={() => setFieldTouched('mobileno')} />
+            </View>
+            <Text style={styles.errorTxt}>{touched.mobileno && errors.mobileno ? errors.mobileno : ''}</Text>
+
+            <View style={styles.container}>
+              <TouchableOpacity onPress={handleSubmit} title="Submit" style={[styles.submitBtn, { backgroundColor: isValid ? '#1babdf' : '#0004' }]} disabled={!isValid}>
+                <Text style={styles.submitBtnTxt}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+        </ScrollView>
+      )}
+
+    </Formik>
+
   );
 }
-
-const styles = StyleSheet.create({
-  logoImage:{
-    flex:1,
-    justifyContent: 'center',
-    height: 100,
-    width: imageWidth,
-    margin:50
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  wrapper: {
-    flex:1,
-    justifyContent:'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 15,
-  },
-  formContainer:{
-    padding:20,
-    borderRadius: 20,
-    width:'100%',
-    justifyContent:'center',
-  },
-  topContainer:{
-    padding:40,
-    borderRadius: 20,
-    width:'100%',
-    alignItems: 'center',
-    justifyContent:'center',
-  },
-  title:{
-    color:'#16213E',
-    fontSize: 26,
-    fontWeight: '400',
-    marginBottom:15,
-  },
-  inputWrapper: {
-    marginBottom: 0,
-  },
-  inputStyle:{
-    borderColor: '#16213E',
-    borderWidth:1,
-    borderRadius:10,
-    padding:10,
-  },
-  errorTxt:{
-    fontSize: 12,
-    color: '#FF0D10',
-    marginBottom:'5%'
-  },
-  submitBtn:{
-    backgroundColor: '#1babdf',
-    padding:10,
-    borderRadius:15,
-    justifyContent: 'center',
-    width:'100%'
-  },
-  submitBtnTxt:{
-    color:'#fff',
-    textAlign:'center',
-    fontSize:18,
-    fontWeight:'700',
-  },
-  textInputcontainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    padding: 10,
-  },
-  textInputimage: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
-  },
-  textInputWithImage: {
-    flex: 1,
-  },
-});
